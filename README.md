@@ -1,12 +1,12 @@
 
-# ngx-orphan-classmember-remover
+# ngx-orphan-class-member
 
 A CLI tool to find and remove unused class members from Angular components.
 
 ## Installation
 
 ```sh
-npm install -g ngx-orphan-classmember-remover
+npm install -g ngx-orphan-class-member
 ```
 
 ## Usage
