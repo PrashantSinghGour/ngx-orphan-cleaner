@@ -28,10 +28,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/PrashantSinghGour/ngx-orphan-classmember-remover.git"
+    "url": "https://github.com/PrashantSinghGour/ngx-orphan-class-member.git.git"
   },
   "bugs": {
-    "url": "https://github.com/PrashantSinghGour/ngx-orphan-classmember-remover/issues"
+    "url": "https://github.com/PrashantSinghGour/ngx-orphan-class-member/issues"
   },
   "author": "Prashant Singh Gour",
   "license": "MIT"
