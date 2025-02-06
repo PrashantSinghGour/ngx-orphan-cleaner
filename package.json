@@ -1,12 +1,12 @@
 {
   "name": "ngx-orphan-class-member",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A CLI tool to find and remove unused class members in Angular components",
   "scripts": {
     "build": "tsc"
   },
   "bin": {
-    "my-cli-library": "./dist/cli.js"
+    "ngx-orphan-class-member": "./dist/cli/cli.js"
   },
   "peerDependencies": {
     "chalk": "^5.4.1",
