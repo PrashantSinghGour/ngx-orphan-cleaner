@@ -1,5 +1,5 @@
 
-# ngx-orphan-class-member
+# ngx-orphan-cleaner
 
 A CLI tool to find unused variables and methods in Angular components.
 Currently, it has the ability to remove unused variables using the `remove` command.
@@ -7,13 +7,13 @@ Currently, it has the ability to remove unused variables using the `remove` comm
 ## Installation
 
 ```sh
-npm install -g ngx-orphan-class-member
+npm install -g ngx-orphan-cleaner
 ```
 
 ## Usage
 
 ```sh
-unused-members <command> [directory-path]
+ngx-orphan-cleaner <command> [directory-path]
 ```
 
 ### Commands
@@ -32,19 +32,19 @@ unused-members <command> [directory-path]
 
 ```sh
 # Find unused members in the current directory
-unused-members find
+ngx-orphan-cleaner find
 
 # Remove unused members in the current directory
-unused-members remove
+ngx-orphan-cleaner remove
 
 # Find unused members in a specific directory
-unused-members find ./src/app/components
+ngx-orphan-cleaner find ./src/app/components
 
 # Remove unused members in a specific directory
-unused-members remove ./src/app/components
+ngx-orphan-cleaner remove ./src/app/components
 
 # Show help information
-unused-members --help
+ngx-orphan-cleaner --help
 ```
 
 ## License

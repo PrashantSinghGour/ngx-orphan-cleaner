@@ -1,12 +1,12 @@
 {
-  "name": "ngx-orphan-class-member",
+  "name": "ngx-orphan-cleaner",
   "version": "1.0.0",
   "description": "A CLI tool to find and remove unused class members in Angular components",
   "scripts": {
     "build": "tsc"
   },
   "bin": {
-    "ngx-orphan-class-member": "./dist/cli/cli.js"
+    "ngx-orphan-cleaner": "./dist/cli/cli.js"
   },
   "peerDependencies": {
     "chalk": "^5.4.1",
@@ -28,10 +28,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/PrashantSinghGour/ngx-orphan-class-member.git"
+    "url": "https://github.com/PrashantSinghGour/ngx-orphan-cleaner.git"
   },
   "bugs": {
-    "url": "https://github.com/PrashantSinghGour/ngx-orphan-class-member/issues"
+    "url": "https://github.com/PrashantSinghGour/ngx-orphan-cleaner/issues"
   },
   "author": "Prashant Singh Gour",
   "license": "MIT"
