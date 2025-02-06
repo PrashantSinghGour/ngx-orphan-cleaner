@@ -1,7 +1,8 @@
 
 # ngx-orphan-class-member
 
-A CLI tool to find and remove unused class members from Angular components.
+A CLI tool to find unused variables and methods in Angular components.
+Currently, it has the ability to remove unused variables using the `remove` command.
 
 ## Installation
 
