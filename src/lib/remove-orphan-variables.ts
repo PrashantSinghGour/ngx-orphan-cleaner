@@ -2,6 +2,7 @@ import * as ts from 'typescript';
 import * as fs from 'fs';
 import * as path from 'path';
 import chalk from 'chalk';
+import { isVariableUsed } from '../common/functions.js';
 
 type UnusedVariableInfo = {
   className: string;
@@ -79,51 +80,6 @@ function findUnusedClassVariables(filePath: string): UnusedVariableInfo[] {
   });
 
   return unusedVariables;
-}
-
-// Function to check if a variable is used in the source or HTML file
-function isVariableUsed(
-  variableName: string,
-  sourceCode: string,
-  htmlContent: string
-): boolean {
-  const escapedVariableName = variableName.replace('$', '\\$'); // Escape the dollar sign
-
-  // Match this.variableName$ in TypeScript code (direct usage)
-  const regexTs = new RegExp(`\\bthis\\.${escapedVariableName}\\b`, 'g'); // Match this.variableName$
-
-  // Match subscribe(this.variableName$) in TypeScript code (for observables)
-  const regexSubscribe = new RegExp(
-    `\\.subscribe\\s*\\(\\s*this\\.${escapedVariableName}\\s*\\)`,
-    'g'
-  );
-
-  // Match this.subscription.add(this.variableName$) for observable subscriptions across multiple lines
-  const regexSubscriptionAdd = new RegExp(
-    `this\\.subscription\\.add\\s*\\(\\s*this\\.${escapedVariableName}\\s*\\.subscribe\\s*\\(.*\\)\\s*\\)`,
-    'gs' // 'g' for global and 's' for dotall to handle newlines
-  );
-
-  // Match variableName$ in HTML template (via async pipe or direct usage)
-  const regexHtml = new RegExp(`\\b${escapedVariableName}\\b`, 'g'); // Match variableName$ in HTML
-
-  // Check if the variable is assigned in the TypeScript file (e.g., this.hasDFOLicense$ = this.store.select())
-  const regexAssignment = new RegExp(
-    `\\bthis\\.${escapedVariableName}\\s*=\\s*`,
-    'g'
-  );
-
-  // Check usage in TypeScript code (direct or in subscribe or assignment)
-  const isUsedInTs =
-    regexTs.test(sourceCode) ||
-    regexSubscribe.test(sourceCode) ||
-    regexSubscriptionAdd.test(sourceCode) ||
-    regexAssignment.test(sourceCode);
-
-  // Check usage in HTML template (via async pipe or direct usage)
-  const isUsedInHtml = regexHtml.test(htmlContent);
-
-  return isUsedInTs || isUsedInHtml;
 }
 
 // Function to remove unused class members
