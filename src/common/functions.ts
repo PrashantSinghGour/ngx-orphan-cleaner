@@ -26,11 +26,8 @@ export function isVariableUsed(
     "g"
   );
 
-  // Used inside `ngOnChanges(changes)`
-  const regexNgOnChanges = new RegExp(
-    `\\bchanges\\.${escapedVariableName}\\.currentValue\\b`,
-    "g"
-  );
+  // Detect any access to changes.<variableName> (not just currentValue)
+  const regexNgOnChanges = new RegExp(`changes\\.${escapedVariableName}`, "g");
 
   // Used inside HTML (property bindings, event bindings, async pipe, direct interpolation)
   const regexHtml = new RegExp(
@@ -38,7 +35,7 @@ export function isVariableUsed(
     "g"
   );
 
-  // 7 Check for `.subscribe()`, `.next()`, `.pipe()`, `.complete()`, `.unsubscribe()`
+  // Check for `.subscribe()`, `.next()`, `.pipe()`, `.complete()`, `.unsubscribe()`
   const regexObservableMethods = new RegExp(
     `this\\.${escapedVariableName}\\s*\\.\\s*(subscribe|next|pipe|complete|unsubscribe)\\s*\\(`,
     "g"
