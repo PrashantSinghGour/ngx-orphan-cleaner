@@ -5,10 +5,13 @@ export function isVariableUsed(
 ): boolean {
   const escapedVariableName = variableName.replace("$", "\\$"); // Escape $
 
-  // Remove all comments from TypeScript code
-  const cleanedSourceCode = sourceCode
-    .replace(/\/\/.*$/gm, "") // Remove single-line comments
-    .replace(/\/\*[\s\S]*?\*\//g, ""); // Remove multi-line comments
+  // Remove all comments and unnecessary characters from TypeScript code
+const cleanedSourceCode = sourceCode
+  .replace(/\/\/.*$/gm, "") // Remove single-line comments
+  .replace(/\/\*[\s\S]*?\*\//g, "") // Remove multi-line comments
+  .replace(/\r\n/g, "\n") // Normalize line endings
+  .replace(/\?\./g, ".") // Replace optional chaining with dot
+  .trim();
 
   // Remove HTML comments (<!-- ... -->)
   const cleanedHtmlContent = htmlContent.replace(/<!--[\s\S]*?-->/g, "");

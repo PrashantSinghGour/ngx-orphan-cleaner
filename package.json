@@ -1,6 +1,6 @@
 {
   "name": "ngx-orphan-cleaner",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A CLI tool to find and remove unused class members in Angular components",
   "scripts": {
     "build": "tsc"
