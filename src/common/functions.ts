@@ -5,6 +5,14 @@ export function isVariableUsed(
 ): boolean {
   const escapedVariableName = variableName.replace("$", "\\$"); // Escape $
 
+  // Remove all comments from TypeScript code
+  const cleanedSourceCode = sourceCode
+    .replace(/\/\/.*$/gm, "") // Remove single-line comments
+    .replace(/\/\*[\s\S]*?\*\//g, ""); // Remove multi-line comments
+
+  // Remove HTML comments (<!-- ... -->)
+  const cleanedHtmlContent = htmlContent.replace(/<!--[\s\S]*?-->/g, "");
+
   // Direct usage in TypeScript
   const regexTs = new RegExp(`\\bthis\\.${escapedVariableName}\\b`, "g");
 
@@ -26,8 +34,17 @@ export function isVariableUsed(
     "g"
   );
 
-  // Detect any access to changes.<variableName> (not just currentValue)
-  const regexNgOnChanges = new RegExp(`changes\\.${escapedVariableName}`, "g");
+  // Detect dynamic ngOnChanges parameter name (handles SimpleChanges, any, or no type)
+  const ngOnChangesParamRegex =
+    /\bngOnChanges\s*\(\s*(\w+)\s*(?::\s*(?:SimpleChanges|any))?\s*\)/;
+  const match = cleanedSourceCode.match(ngOnChangesParamRegex);
+  const paramName = match ? match[1] : "changes"; // Default to "changes" if not found
+
+  // Improved regex for detecting variable usage inside ngOnChanges
+  const regexNgOnChanges = new RegExp(
+    `\\b${paramName}\\s*(?:\\?|!)?\\.?\\[?["']?${escapedVariableName}["']?\\]?\\s*\\.`,
+    "g"
+  );
 
   // Used inside HTML (property bindings, event bindings, async pipe, direct interpolation)
   const regexHtml = new RegExp(
@@ -43,14 +60,13 @@ export function isVariableUsed(
 
   // Combine all checks
   const isUsedInTs =
-    regexTs.test(sourceCode) ||
-    regexSubscribe.test(sourceCode) ||
-    regexSubscriptionAdd.test(sourceCode) ||
-    regexAssignment.test(sourceCode) ||
-    regexNgOnChanges.test(sourceCode) ||
-    regexObservableMethods.test(sourceCode);
-
-  const isUsedInHtml = regexHtml.test(htmlContent);
+    regexTs.test(cleanedSourceCode) ||
+    regexSubscribe.test(cleanedSourceCode) ||
+    regexSubscriptionAdd.test(cleanedSourceCode) ||
+    regexAssignment.test(cleanedSourceCode) ||
+    regexNgOnChanges.test(cleanedSourceCode) ||
+    regexObservableMethods.test(cleanedSourceCode);
+  const isUsedInHtml = regexHtml.test(cleanedHtmlContent);
 
   return isUsedInTs || isUsedInHtml;
 }

@@ -1,6 +1,6 @@
 {
   "name": "ngx-orphan-cleaner",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A CLI tool to find and remove unused class members in Angular components",
   "scripts": {
     "build": "tsc"
@@ -21,9 +21,9 @@
   ],
   "type": "module",
   "devDependencies": {
-    "tslib": "^2.3.0",
+    "@types/node": "^22.13.1",
     "ts-node": "^10.9.2",
-    "@types/node": "^22.13.1"
+    "tslib": "^2.3.0"
   },
   "repository": {
     "type": "git",
